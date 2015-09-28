@@ -1,7 +1,5 @@
 <?php
 
-\Craft\Craft::import('plugins.restApi.vendor.autoload', true);
-
 return [
 
     /**
@@ -57,7 +55,6 @@ return [
      * A Serializer structures your Transformed data in certain ways.
      * For more info, see http://fractal.thephpleague.com/serializers/.
      */
-
     'defaultSerializer' => 'ArraySerializer',
 
     /**
@@ -104,7 +101,7 @@ return [
      *
      * This transformer will be applied to all throw exceptions.
      */
-    'exceptionTransformer' => new RestApi\Transformers\ArrayTransformer,
+    'exceptionTransformer' => 'RestApi\Transformers\ArrayTransformer',
 
     /**
      * Element Types
@@ -116,7 +113,7 @@ return [
 
         '*' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\ArrayTransformer,
+            'transformer' => 'RestApi\Transformers\ArrayTransformer',
             'validator'   => null,
             'permissions' => [
                 'public'        => ['GET'],
@@ -126,44 +123,44 @@ return [
 
         'Asset' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\AssetTransformer,
-            'validator'   => new RestApi\Validators\AssetValidator,
+            'transformer' => 'RestApi\Transformers\AssetTransformer',
+            'validator'   => 'RestApi\Validators\AssetValidator',
         ],
 
         'Category' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\CategoryTransformer,
-            'validator'   => new RestApi\Validators\CategoryValidator,
+            'transformer' => 'RestApi\Transformers\CategoryTransformer',
+            'validator'   => 'RestApi\Validators\CategoryValidator',
         ],
 
         'Entry' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\EntryTransformer,
-            'validator'   => new RestApi\Validators\EntryValidator,
+            'transformer' => 'RestApi\Transformers\EntryTransformer',
+            'validator'   => 'RestApi\Validators\EntryValidator',
         ],
 
         'GlobalSet' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\GlobalSetTransformer,
-            'validator'   => new RestApi\Validators\GlobalSetValidator,
+            'transformer' => 'RestApi\Transformers\GlobalSetTransformer',
+            'validator'   => 'RestApi\Validators\GlobalSetValidator',
         ],
 
         'MatrixBlock' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\MatrixBlockTransformer,
-            'validator'   => new RestApi\Validators\MatrixBlockValidator,
+            'transformer' => 'RestApi\Transformers\MatrixBlockTransformer',
+            'validator'   => 'RestApi\Validators\MatrixBlockValidator',
         ],
 
         'Tag' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\TagTransformer,
-            'validator'   => new RestApi\Validators\TagValidator,
+            'transformer' => 'RestApi\Transformers\TagTransformer',
+            'validator'   => 'RestApi\Validators\TagValidator',
         ],
 
         'User' => [
             'enabled'     => true,
-            'transformer' => new RestApi\Transformers\UserTransformer,
-            'validator'   => new RestApi\Validators\UserValidator,
+            'transformer' => 'RestApi\Transformers\UserTransformer',
+            'validator'   => 'RestApi\Validators\UserValidator',
         ],
 
     ],

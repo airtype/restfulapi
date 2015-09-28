@@ -11,10 +11,20 @@ use RestApi\Transformers\ArrayTransformer;
 
 class BaseTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = [
-        'content'
-    ];
+    /**
+     * Available Includes
+     *
+     * @var array
+     */
+    protected $availableIncludes = ['content'];
 
+    /**
+     * Include Content
+     *
+     * @param BaseElementModel $element Element
+     *
+     * @return League\Fractal\Resource\Item Content
+     */
     public function includeContent(BaseElementModel $element)
     {
         $content = [];
@@ -40,7 +50,7 @@ class BaseTransformer extends TransformerAbstract
 
                 $value = $value->find();
 
-                $body = new Collection($value, $transformer);
+                $body = new Collection($value, new $transformer);
 
                 $value = $manager->createData($body)->toArray();
 

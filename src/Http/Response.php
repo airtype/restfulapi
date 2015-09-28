@@ -238,7 +238,13 @@ class Response extends \RestApi\Http\Psr7\Response
     protected function setDefaultIncludes()
     {
         if ($this->request) {
-            $this->includes = $this->request->getQueryParam('include');
+            $includes = $this->request->getQueryParam('include');
+
+            if (strpos($includes, \Craft\craft()->config->get('contentModelFieldsLocation', 'restApi')) !== false) {
+                $includes = str_replace(\Craft\craft()->config->get('contentModelFieldsLocation', 'restApi'), 'content', $includes);
+            }
+
+            $this->includes = $includes;
         }
     }
 
@@ -634,6 +640,10 @@ class Response extends \RestApi\Http\Psr7\Response
     {
         if (isset($this->includes)) {
             $this->manager->parseIncludes($this->includes);
+        }
+
+        if (is_string($this->transformer)) {
+            $this->transformer = new $this->transformer;
         }
 
         if ($this->item) {

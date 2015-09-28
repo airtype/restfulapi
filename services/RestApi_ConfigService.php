@@ -84,7 +84,7 @@ class RestApi_ConfigService extends BaseApplicationComponent
             throw $exception;
         }
 
-        return $validator;
+        return new $validator;
     }
 
     /**
