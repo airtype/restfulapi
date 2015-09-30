@@ -39,20 +39,82 @@ Example endpoints include:
 To override any values defined in the default configuration, create a `restfulApi.php` file in the config directory and place the keys to override in a returned array.
 
 ### devMode
-
 ```php
 'devMode' => \Craft\craft()->config->get('devMode'),
 ```
-
 If`devMode` is enabled, the stack trace for any exception that throws `RestfulApi\Exceptions\RestfulApiExpception` is output in an error response. If `devMode` is disabled, then the error is still displayed with a message, but without the stack trace. By default, `devMode` observes the setting of `devMode` defined in the `general.php` config.
 
 ### apiRoutePrefix
-
 ```php
 'apiRoutePrefix' => 'api',
 ```
+The Api Route Prefix acts as a namespace and is prepended to all routes that the API plugin defines.
 
-The Api Route Prefix acts as a namespace and is prepended to all routes that the API plugin defines. For example, the endpoint to
+### paginationParameter
+```php
+'paginationParameter' => 'page',
+```
+If Craft detects it's default pagination parameter in a query string, it will hijack the request and handle the response itself. To avoid this, define a pagination parameter that is different than the `paginationParameter` defined in the general config.
+
+### contentModelFieldsLocation
+```php
+'contentModelFieldsLocation' => 'fields',
+```
+This is the key, in the body of $_POST or php://input, which holds content that will need to be added to the element's content model.
+
+### auth
+```php
+'auth' => [
+
+    'basicAuth' => [
+        'username' => '',
+        'password' => '',
+    ],
+
+    'craft' => [
+        'permissions' => [],
+        'users'       => [],
+        'groups'      => [],
+    ],
+
+],
+```
+Restful Api has support for basic authentication or utilizing Craft to verify information about the current user.
+
+For basic auth, simply provide a username and password that will be sent over with each request to the api.
+
+Craft verification relies on an authenticated session already being established. This means that a user will need to be logged in to potentially be authorized to use the api. Restful Api can check against the user's permissions, username, or groups to ensure that the current user is allowed to make an authenticated request.
+
+### defaultAuth
+```php
+'defaultAuth' => null,
+```
+The authentication method that should be applied to all requests. `null` disables authentication altogether.
+
+### autoload
+```php
+'autoload' => [
+    'transformers' => true,
+    'validators'   => true,
+],
+```
+By default, Restful Api will import any classes found in any plugin's `transformers` or `validators` directory. This allows custom transformers and validators to be defined in third plugins.
+
+### defaultSerializer
+```php
+
+```
+A Serializer structures your transformed data in certain ways. For more info, see the Fractal documentation on [serializers] (http://fractal.thephpleague.com/serializers/).
+
+### serializers
+```php
+'serializers' => [
+    'ArraySerializer'     => 'League\\Fractal\\Serializer\\ArraySerializer',
+    'DataArraySerializer' => 'League\\Fractal\\Serializer\\DataArraySerializer',
+    'JsonApiSerializer'   => 'League\\Fractal\\Serializer\\JsonApiSerializer',
+],
+```
+Available serializers that can be specified as default serializer.
 
 ## Permissions
 
