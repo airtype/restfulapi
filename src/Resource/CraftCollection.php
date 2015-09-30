@@ -1,6 +1,6 @@
 <?php
 
-namespace RestApi\Resource;
+namespace RestfulApi\Resource;
 
 use League\Fractal\Resource\Collection;
 

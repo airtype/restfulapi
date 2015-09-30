@@ -1,27 +1,27 @@
 <?php
 
-namespace RestApi\Http;
+namespace RestfulApi\Http;
 
 use League\Fractal\Manager;
 use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\TransformerAbstract;
 use League\Fractal\Resource\ResourceAbstract;
-use RestApi\Resource\CraftItem;
-use RestApi\Resource\CraftCollection;
-use RestApi\Pagination\CraftPaginateVariableAdapter;
-use RestApi\Transformers\ErrorTransformer;
+use RestfulApi\Resource\CraftItem;
+use RestfulApi\Resource\CraftCollection;
+use RestfulApi\Pagination\CraftPaginateVariableAdapter;
+use RestfulApi\Transformers\ErrorTransformer;
 use Craft\BaseElementModel;
 use Craft\ElementCriteriaModel;
-use RestApi\Exceptions\RestApiException;
+use RestfulApi\Exceptions\RestfulApiException;
 use Streamer\Stream as Streamer;
-use RestApi\Http\Psr7\Stream;
+use RestfulApi\Http\Psr7\Stream;
 
-class Response extends \RestApi\Http\Psr7\Response
+class Response extends \RestfulApi\Http\Psr7\Response
 {
     /**
      * Request
      *
-     * @var restApi\Http\Request
+     * @var restfulApi\Http\Request
      */
     protected $request;
 
@@ -84,7 +84,7 @@ class Response extends \RestApi\Http\Psr7\Response
     /**
      * Paginator
      *
-     * @var restApi\Pagination\CraftPaginateVariableAdapter
+     * @var restfulApi\Pagination\CraftPaginateVariableAdapter
      */
     protected $paginator;
 
@@ -240,8 +240,8 @@ class Response extends \RestApi\Http\Psr7\Response
         if ($this->request) {
             $includes = $this->request->getQueryParam('include');
 
-            if (strpos($includes, \Craft\craft()->config->get('contentModelFieldsLocation', 'restApi')) !== false) {
-                $includes = str_replace(\Craft\craft()->config->get('contentModelFieldsLocation', 'restApi'), 'content', $includes);
+            if (strpos($includes, \Craft\craft()->config->get('contentModelFieldsLocation', 'restfulApi')) !== false) {
+                $includes = str_replace(\Craft\craft()->config->get('contentModelFieldsLocation', 'restfulApi'), 'content', $includes);
             }
 
             $this->includes = $includes;
@@ -269,8 +269,8 @@ class Response extends \RestApi\Http\Psr7\Response
      */
     private function setDefaultSerializer()
     {
-        $serializer_key = \Craft\craft()->config->get('defaultSerializer', 'restApi');
-        $serializer = \Craft\craft()->config->get('serializers', 'restApi')[$serializer_key];
+        $serializer_key = \Craft\craft()->config->get('defaultSerializer', 'restfulApi');
+        $serializer = \Craft\craft()->config->get('serializers', 'restfulApi')[$serializer_key];
 
         $this->serializer = new $serializer;
     }
@@ -295,7 +295,7 @@ class Response extends \RestApi\Http\Psr7\Response
      */
     public function addTransformer($element_type, TransformerAbstract $transformer)
     {
-        \Craft\craft()->restApi_config->addTransformer($element_type, $transformer);
+        \Craft\craft()->restfulApi_config->addTransformer($element_type, $transformer);
 
         $this->setDefaultTransformer();
 
@@ -312,7 +312,7 @@ class Response extends \RestApi\Http\Psr7\Response
         $element_type = $this->request->getAttribute('elementType');
 
         if ($element_type) {
-            $this->transformer = \Craft\craft()->restApi_config->getTransformer($element_type);
+            $this->transformer = \Craft\craft()->restfulApi_config->getTransformer($element_type);
         }
     }
 
@@ -326,7 +326,7 @@ class Response extends \RestApi\Http\Psr7\Response
     public function getTransformer($element_type = null)
     {
         if ($element_type) {
-            return \Craft\craft()->restApi_config->getTransformer($element_type);
+            return \Craft\craft()->restfulApi_config->getTransformer($element_type);
         } else {
             return $this->transformer;
         }
@@ -474,11 +474,11 @@ class Response extends \RestApi\Http\Psr7\Response
     /**
      * Set Error
      *
-     * @param RestApiException $exception Exception
+     * @param RestfulApiException $exception Exception
      *
      * @return Response Response
      */
-    public function setError(RestApiException $exception)
+    public function setError(RestfulApiException $exception)
     {
         $body = [
             'error' => [
@@ -490,7 +490,7 @@ class Response extends \RestApi\Http\Psr7\Response
             $body['error']['errors'] = $exception->getErrors();
         }
 
-        if (\Craft\craft()->config->get('devMode', 'restApi')) {
+        if (\Craft\craft()->config->get('devMode', 'restfulApi')) {
             if ($exception->hasInput()) {
                 $body['error']['input'] = $exception->getInput();
             }
@@ -498,7 +498,7 @@ class Response extends \RestApi\Http\Psr7\Response
             $body['error']['debug'] = $exception->getTrace();
         }
 
-        $this->transformer = \Craft\craft()->config->get('exceptionTransformer', 'restApi');
+        $this->transformer = \Craft\craft()->config->get('exceptionTransformer', 'restfulApi');
 
         $this->item = $body;
 

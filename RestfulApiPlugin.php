@@ -2,9 +2,9 @@
 
 namespace Craft;
 
-use RestApi\Exceptions\RestApiException;
+use RestfulApi\Exceptions\RestfulApiException;
 
-class RestApiPlugin extends BasePlugin
+class RestfulApiPlugin extends BasePlugin
 {
     /**
      * Get Name
@@ -13,7 +13,7 @@ class RestApiPlugin extends BasePlugin
      */
     public function getName()
     {
-         return Craft::t('Rest Api');
+         return Craft::t('Restful Api');
     }
 
     /**
@@ -53,11 +53,11 @@ class RestApiPlugin extends BasePlugin
      */
     public function registerSiteRoutes()
     {
-        $route_prefix = craft()->config->get('apiRoutePrefix', 'restApi');
+        $route_prefix = craft()->config->get('apiRoutePrefix', 'restfulApi');
 
         return [
-            $route_prefix => ['action' => 'restApi/resourceRouter'],
-            sprintf('%s/(?P<elementType>\w+)(/(?P<elementId>\d+)(/(?P<action>\w+))?)?', $route_prefix) => ['action' => 'restApi/resourceRouter'],
+            $route_prefix => ['action' => 'restfulApi/resourceRouter'],
+            sprintf('%s/(?P<elementType>\w+)(/(?P<elementId>\d+)(/(?P<action>\w+))?)?', $route_prefix) => ['action' => 'restfulApi/resourceRouter'],
         ];
     }
 
@@ -70,8 +70,8 @@ class RestApiPlugin extends BasePlugin
     {
         $this->autoload_files();
 
-        if (craft()->config->get('paginationParameter', 'restApi') === craft()->config->get('pageTrigger')) {
-            $exception = new RestApiException;
+        if (craft()->config->get('paginationParameter', 'restfulApi') === craft()->config->get('pageTrigger')) {
+            $exception = new RestfulApiException;
             $exception->setMessage('The `paginationParameter` cannot be the same as `pageTrigger`.');
 
             throw $exception;
@@ -85,20 +85,20 @@ class RestApiPlugin extends BasePlugin
      */
     public function autoload_files()
     {
-        $autoload = craft()->config->get('autoload', 'restApi');
+        $autoload = craft()->config->get('autoload', 'restfulApi');
 
         if ($autoload['transformers']) {
             Craft::import('plugins.*.transformers.*', true);
         } else {
-            Craft::import('plugins.restApi.transformers.*', true);
+            Craft::import('plugins.restfulApi.transformers.*', true);
         }
 
         if ($autoload['validators']) {
             Craft::import('plugins.*.validators.*', true);
         } else {
-            Craft::import('plugins.restApi.validators.*', true);
+            Craft::import('plugins.restfulApi.validators.*', true);
         }
 
-        Craft::import('plugins.restApi.vendor.autoload', true);
+        Craft::import('plugins.restfulApi.vendor.autoload', true);
     }
 }

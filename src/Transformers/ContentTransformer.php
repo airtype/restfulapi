@@ -1,6 +1,6 @@
 <?php
 
-namespace RestApi\Transformers;
+namespace RestfulApi\Transformers;
 
 class ContentTransformer extends BaseTransformer
 {

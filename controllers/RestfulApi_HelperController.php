@@ -2,16 +2,16 @@
 
 namespace Craft;
 
-use RestApi\Http\Router;
-use RestApi\Http\Dispatcher;
-use RestApi\Http\Request;
-use RestApi\Http\Response;
-use RestApi\Exceptions\RestApiException;
+use RestfulApi\Http\Router;
+use RestfulApi\Http\Dispatcher;
+use RestfulApi\Http\Request;
+use RestfulApi\Http\Response;
+use RestfulApi\Exceptions\RestfulApiException;
 use CDbException;
 use League\Fractal\Serializer\ArraySerializer;
-use RestApi\Transformers\ArrayTransformer;
+use RestfulApi\Transformers\ArrayTransformer;
 
-class RestApi_HelperController extends BaseController
+class RestfulApi_HelperController extends BaseController
 {
     /**
      * Allow Anonymous
@@ -23,28 +23,28 @@ class RestApi_HelperController extends BaseController
     /**
      * Router
      *
-     * @var restApi\Http\Router
+     * @var restfulApi\Http\Router
      */
     protected $router;
 
     /**
      * Dispatcher
      *
-     * @var restApi\Http\Dispatcher
+     * @var restfulApi\Http\Dispatcher
      */
     protected $dispatcher;
 
     /**
      * Request
      *
-     * @var restApi\Http\Request
+     * @var restfulApi\Http\Request
      */
     protected $request;
 
     /**
      * Response
      *
-     * @var restApi\Http\Response
+     * @var restfulApi\Http\Response
      */
     protected $response;
 
@@ -58,7 +58,7 @@ class RestApi_HelperController extends BaseController
             $this->dispatcher = new Dispatcher($this->router);
             $this->request    = new Request();
             $this->response   = new Response($this->request);
-        } catch (RestApiException $exception) {
+        } catch (RestfulApiException $exception) {
             $response = new Response();
 
             $response
@@ -66,7 +66,7 @@ class RestApi_HelperController extends BaseController
                 ->setError($exception)
                 ->send();
         } catch (\Craft\Exception $craftException) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
             $exception->setMessage($craftException->getMessage());
 
             $response = new Response();
@@ -100,7 +100,7 @@ class RestApi_HelperController extends BaseController
             $this->dispatcher->handle($this, $variables);
 
             return $this->response->send();
-        } catch (RestApiException $exception) {
+        } catch (RestfulApiException $exception) {
             $exception->setInput($this->request->getParsedBody());
 
             $response = new Response();
@@ -110,7 +110,7 @@ class RestApi_HelperController extends BaseController
                 ->setError($exception)
                 ->send();
         } catch (CDbException $CDbException) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
             $exception->setMessage($CDbException->getMessage());
 
             $response = new Response();
@@ -119,7 +119,7 @@ class RestApi_HelperController extends BaseController
                 ->setError($exception)
                 ->send();
         } catch (\Craft\Exception $craftException) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
             $exception->setMessage($craftException->getMessage());
 
             $response = new Response();

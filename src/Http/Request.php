@@ -1,11 +1,11 @@
 <?php
 
-namespace RestApi\Http;
+namespace RestfulApi\Http;
 
-use RestApi\Http\Psr7\ServerRequest;
+use RestfulApi\Http\Psr7\ServerRequest;
 use League\Url\Url;
 use Streamer\Stream as Streamer;
-use RestApi\Http\Psr7\Stream;
+use RestfulApi\Http\Psr7\Stream;
 use Craft\ElementCriteriaModel;
 
 class Request extends ServerRequest

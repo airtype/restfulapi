@@ -2,9 +2,9 @@
 
 namespace Craft;
 
-use RestApi\Exceptions\RestApiException;
+use RestfulApi\Exceptions\RestfulApiException;
 
-class RestApi_ConfigService extends BaseApplicationComponent
+class RestfulApi_ConfigService extends BaseApplicationComponent
 {
     /**
      * Element Types
@@ -18,7 +18,7 @@ class RestApi_ConfigService extends BaseApplicationComponent
      */
     public function __construct()
     {
-        $this->element_types = craft()->config->get('elementTypes', 'restApi');
+        $this->element_types = craft()->config->get('elementTypes', 'restfulApi');
     }
 
     /**
@@ -37,7 +37,7 @@ class RestApi_ConfigService extends BaseApplicationComponent
         $config = isset($this->element_types[$element_type]) ? $this->element_types[$element_type] : null;
 
         if (!is_array($config)) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(415)
@@ -47,7 +47,7 @@ class RestApi_ConfigService extends BaseApplicationComponent
         }
 
         if (isset($config['enabled']) && !$config['enabled']) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(415)
@@ -68,14 +68,14 @@ class RestApi_ConfigService extends BaseApplicationComponent
      *
      * @param sting $element_type Element Type
      *
-     * @return RestApi\Validators\AbstractValidator Validator
+     * @return RestfulApi\Validators\AbstractValidator Validator
      */
     public function getValidator($element_type)
     {
         $validator = $this->getElementTypeConfig($element_type, 'validator');
 
         if (!$validator) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(415)
@@ -99,7 +99,7 @@ class RestApi_ConfigService extends BaseApplicationComponent
         $transformer = $this->getElementTypeConfig($element_type, 'transformer');
 
         if (!$transformer) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(415)
@@ -160,7 +160,7 @@ class RestApi_ConfigService extends BaseApplicationComponent
         }
 
         if (!$element_permissions) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(415)

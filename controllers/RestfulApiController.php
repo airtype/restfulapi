@@ -2,9 +2,9 @@
 
 namespace Craft;
 
-use RestApi\Http\Request;
+use RestfulApi\Http\Request;
 
-class RestApiController extends RestApi_HelperController
+class RestfulApiController extends RestfulApi_HelperController
 {
     /**
      * Action Show
@@ -15,7 +15,7 @@ class RestApiController extends RestApi_HelperController
      */
     public function actionIndex(array $variables = [])
     {
-        $elements = craft()->restApi->getElements($this->request);
+        $elements = craft()->restfulApi->getElements($this->request);
 
         return $this->response->setPaginatedCollection($elements);
     }
@@ -29,7 +29,7 @@ class RestApiController extends RestApi_HelperController
      */
     public function actionShow(array $variables = [])
     {
-        $element = craft()->restApi->getElement($this->request);
+        $element = craft()->restfulApi->getElement($this->request);
 
         return $this->response
             ->setItem($element);
@@ -44,7 +44,7 @@ class RestApiController extends RestApi_HelperController
      */
     public function actionStore(array $variables = [])
     {
-        $element = craft()->restApi->saveElement($this->request);
+        $element = craft()->restfulApi->saveElement($this->request);
 
         return $this->response
             ->setCreated()
@@ -60,7 +60,7 @@ class RestApiController extends RestApi_HelperController
      */
     public function actionUpdate(array $variables = [])
     {
-        $element = craft()->restApi->saveElement($this->request);
+        $element = craft()->restfulApi->saveElement($this->request);
 
         return $this->response
             ->setStatus(200, 'Element updated successfully.')
@@ -76,7 +76,7 @@ class RestApiController extends RestApi_HelperController
      */
     public function actionDelete(array $variables = [])
     {
-        craft()->restApi->deleteElement($this->request);
+        craft()->restfulApi->deleteElement($this->request);
 
         return $this->response->setStatus(204, 'Element deleted successfully.');
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace RestApi\Http\Psr7;
+namespace RestfulApi\Http\Psr7;
 
 use Psr\Http\Message\ResponseInterface;
 

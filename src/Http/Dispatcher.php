@@ -1,11 +1,11 @@
 <?php
 
-namespace RestApi\Http;
+namespace RestfulApi\Http;
 
 use Craft\UrlManager;
 use Craft\UserModel;
 use Craft\BaseController;
-use RestApi\Exceptions\RestApiException;
+use RestfulApi\Exceptions\RestfulApiException;
 
 class Dispatcher
 {
@@ -68,7 +68,7 @@ class Dispatcher
         $this->validateRoute($request, $user, $is_authenticated);
 
         if ($request->getMethod() === 'GET' && !$request->getAttribute('elementType') && !$request->getAttribute('elementId') && !$request->getAttribute('action')) {
-            $permissions = \Craft\craft()->restApi_config->getCompiledElementsPermissions($is_authenticated);
+            $permissions = \Craft\craft()->restfulApi_config->getCompiledElementsPermissions($is_authenticated);
 
             return $class->actionShowPermissions($permissions);
         }
@@ -142,12 +142,12 @@ class Dispatcher
      * @param string $element_type  Element Type
      * @param array  $element_types Element Types
      *
-     * @return null|RestApiException
+     * @return null|RestfulApiException
      */
     protected function validateElementType($element_type, $element_types)
     {
         if ($element_type && !in_array($element_type, $element_types)) {
-            throw new RestApiException(sprintf('`%s` is not a valid element type.', $element_type));
+            throw new RestfulApiException(sprintf('`%s` is not a valid element type.', $element_type));
         }
     }
 
@@ -157,14 +157,14 @@ class Dispatcher
      * @param string $element_id   Element Id
      * @param string $element_type Element Type
      *
-     * @return null|RestApiException
+     * @return null|RestfulApiException
      */
     protected function validateElement($element_id, $element_type)
     {
         $element = \Craft\craft()->elements->getElementById($element_id);
 
         if (!$element) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
             $exception
                 ->setStatus(404)
                 ->setMessage(sprintf('An element with an id of `%s` was not found.', $element_id));
@@ -173,7 +173,7 @@ class Dispatcher
         }
 
         if ($element->getElementType() !== $element_type) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
             $exception
                 ->setStatus(404)
                 ->setMessage(sprintf('An element with an id of `%s` was found, but the element type is `%s`, not `%s`.', $element_id, $element->getElementType(), $element_type));
@@ -189,11 +189,11 @@ class Dispatcher
      * @param UserModel $user             User
      * @param bool      $is_authenticated Is Authenticated
      *
-     * @return null|RestApiException
+     * @return null|RestfulApiException
      */
     protected function validateElementPermission(Request $request, UserModel $user = null, $is_authenticated = false)
     {
-        $element_permissions = \Craft\craft()->restApi_config->getElementPermissions($request->getAttribute('elementType'));
+        $element_permissions = \Craft\craft()->restfulApi_config->getElementPermissions($request->getAttribute('elementType'));
 
         if ($is_authenticated && in_array($request->getMethod(), $element_permissions['authenticated'])) {
             return;
@@ -203,7 +203,7 @@ class Dispatcher
             return;
         }
 
-        $exception = new RestApiException();
+        $exception = new RestfulApiException();
         $exception
             ->setStatus(401)
             ->setMessage(sprintf('User is not authorized to perform method `%s` on `%s` element type.', $request->getMethod(), $request->getAttribute('elementType')));
@@ -218,7 +218,7 @@ class Dispatcher
      */
     public function isAuthenticated(Request $request, UserModel $user = null)
     {
-        $auth = \Craft\craft()->config->get('defaultAuth', 'restApi');
+        $auth = \Craft\craft()->config->get('defaultAuth', 'restfulApi');
 
         if (!$auth) {
             return false;
@@ -244,7 +244,7 @@ class Dispatcher
      */
     public function validateBasicAuth(Request $request)
     {
-        $basic_auth = \Craft\craft()->config->get('auth', 'restApi')['basicAuth'];
+        $basic_auth = \Craft\craft()->config->get('auth', 'restfulApi')['basicAuth'];
 
         $username = $request->getServerParam('PHP_AUTH_USER');
         $password = $request->getServerParam('PHP_AUTH_PW');
@@ -266,7 +266,7 @@ class Dispatcher
      */
     public function validateCraftAuth(Request $request, UserModel $user)
     {
-        $craft_auth = \Craft\craft()->config->get('auth', 'restApi')['craft'];
+        $craft_auth = \Craft\craft()->config->get('auth', 'restfulApi')['craft'];
 
         if (in_array($user->username, $craft_auth['users'])) {
             return true;

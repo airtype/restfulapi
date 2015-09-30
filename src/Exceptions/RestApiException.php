@@ -1,8 +1,8 @@
 <?php
 
-namespace RestApi\Exceptions;
+namespace RestfulApi\Exceptions;
 
-class RestApiException extends \CException
+class RestfulApiException extends \CException
 {
     /**
      * Status Code

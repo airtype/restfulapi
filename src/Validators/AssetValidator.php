@@ -1,6 +1,6 @@
 <?php
 
-namespace RestApi\Validators;
+namespace RestfulApi\Validators;
 
 class AssetValidator extends AbstractValidator
 {

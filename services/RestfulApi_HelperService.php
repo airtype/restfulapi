@@ -2,11 +2,11 @@
 
 namespace Craft;
 
-use RestApi\Http\Request;
-use RestApi\Validators\AbstractValidator;
-use RestApi\Exceptions\RestApiException;
+use RestfulApi\Http\Request;
+use RestfulApi\Validators\AbstractValidator;
+use RestfulApi\Exceptions\RestfulApiException;
 
-class RestApi_HelperService extends BaseApplicationComponent
+class RestfulApi_HelperService extends BaseApplicationComponent
 {
     /**
      * Get Element Types
@@ -37,7 +37,7 @@ class RestApi_HelperService extends BaseApplicationComponent
         $element_types = $this->getElementTypes();
 
         if (!isset($element_types[$class])) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(400)
@@ -56,7 +56,7 @@ class RestApi_HelperService extends BaseApplicationComponent
      */
     public function getElements(ElementCriteriaModel $criteria)
     {
-        $pagination_parameter = craft()->config->get('paginationParameter', 'restApi');
+        $pagination_parameter = craft()->config->get('paginationParameter', 'restfulApi');
 
         if (isset($criteria->$pagination_parameter)) {
             $criteria->offset = $criteria->$pagination_parameter;
@@ -98,7 +98,7 @@ class RestApi_HelperService extends BaseApplicationComponent
      */
     public function populateElement(BaseElementModel $element, Request $request)
     {
-        $fields_key = craft()->config->get('contentModelFieldsLocation', 'restApi');
+        $fields_key = craft()->config->get('contentModelFieldsLocation', 'restfulApi');
 
         $attributes = $request->getParsedBody();
 
@@ -128,7 +128,7 @@ class RestApi_HelperService extends BaseApplicationComponent
         $validator->validate($element);
 
         if ($validator->hasErrors()) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(422)
@@ -153,7 +153,7 @@ class RestApi_HelperService extends BaseApplicationComponent
         $result = $element_type->saveElement($element, null);
 
         if (!$result) {
-            $exception = new RestApiException();
+            $exception = new RestfulApiException();
 
             $exception
                 ->setStatus(400)

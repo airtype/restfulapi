@@ -2,9 +2,9 @@
 
 namespace Craft;
 
-use RestApi\Http\Request;
+use RestfulApi\Http\Request;
 
-class RestApiService extends BaseApplicationComponent
+class RestfulApiService extends BaseApplicationComponent
 {
     /**
      * Get Elements
@@ -15,7 +15,7 @@ class RestApiService extends BaseApplicationComponent
      */
     public function getElements(Request $request)
     {
-        return craft()->restApi_helper->getElements($request->getCriteria());
+        return craft()->restfulApi_helper->getElements($request->getCriteria());
     }
 
     /**
@@ -27,7 +27,7 @@ class RestApiService extends BaseApplicationComponent
      */
     public function getElement(Request $request)
     {
-        return craft()->restApi_helper->getElement($request);
+        return craft()->restfulApi_helper->getElement($request);
     }
 
     /**
@@ -39,15 +39,15 @@ class RestApiService extends BaseApplicationComponent
      */
     public function saveElement(Request $request)
     {
-        $element = craft()->restApi_helper->getElement($request);
+        $element = craft()->restfulApi_helper->getElement($request);
 
-        $populated_element = craft()->restApi_helper->populateElement($element, $request);
+        $populated_element = craft()->restfulApi_helper->populateElement($element, $request);
 
-        $validator = craft()->restApi_config->getValidator($populated_element->getElementType());
+        $validator = craft()->restfulApi_config->getValidator($populated_element->getElementType());
 
-        craft()->restApi_helper->validateElement($populated_element, $validator);
+        craft()->restfulApi_helper->validateElement($populated_element, $validator);
 
-        return craft()->restApi_helper->saveElement($populated_element, $request);
+        return craft()->restfulApi_helper->saveElement($populated_element, $request);
     }
 
     /**
@@ -59,6 +59,6 @@ class RestApiService extends BaseApplicationComponent
      */
     public function deleteElement(Request $request)
     {
-        craft()->restApi_helper->deleteElement($request);
+        craft()->restfulApi_helper->deleteElement($request);
     }
 }

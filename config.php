@@ -28,19 +28,6 @@ return [
     'paginationParameter' => 'page',
 
     /**
-     * Autoload
-     *
-     * Determine which directories should have thier files autoloaded.
-     *
-     * `true` loads the files in that directory across ALL plugins.
-     * `false` loads the files in that directory only in the RestApi plugin.
-     */
-    'autoload' => [
-        'transformers' => true,
-        'validators'   => true,
-    ],
-
-    /**
      * Content Model Fields Location
      *
      * This is the key, in the body of $_POST or php://input, in which
@@ -48,25 +35,6 @@ return [
      * model.
      */
     'contentModelFieldsLocation' => 'fields',
-
-    /**
-     * Default Serializers
-     *
-     * A Serializer structures your Transformed data in certain ways.
-     * For more info, see http://fractal.thephpleague.com/serializers/.
-     */
-    'defaultSerializer' => 'ArraySerializer',
-
-    /**
-     * Serializers
-     *
-     * Available serializers that can be specified as default serializers.
-     */
-    'serializers' => [
-        'ArraySerializer'     => 'League\Fractal\Serializer\ArraySerializer',
-        'DataArraySerializer' => 'League\Fractal\Serializer\DataArraySerializer',
-        'JsonApiSerializer'   => 'League\Fractal\Serializer\JsonApiSerializer',
-    ],
 
     /**
      * Default Auth
@@ -97,11 +65,43 @@ return [
     ],
 
     /**
+     * Autoload
+     *
+     * Determine which directories should have thier files autoloaded.
+     *
+     * `true` loads the files in that directory across ALL plugins.
+     * `false` loads the files in that directory only in the RestfulApi plugin.
+     */
+    'autoload' => [
+        'transformers' => true,
+        'validators'   => true,
+    ],
+
+    /**
+     * Default Serializers
+     *
+     * A Serializer structures your Transformed data in certain ways.
+     * For more info, see http://fractal.thephpleague.com/serializers/.
+     */
+    'defaultSerializer' => 'ArraySerializer',
+
+    /**
+     * Serializers
+     *
+     * Available serializers that can be specified as default serializers.
+     */
+    'serializers' => [
+        'ArraySerializer'     => 'League\\Fractal\\Serializer\\ArraySerializer',
+        'DataArraySerializer' => 'League\\Fractal\\Serializer\\DataArraySerializer',
+        'JsonApiSerializer'   => 'League\\Fractal\\Serializer\\JsonApiSerializer',
+    ],
+
+    /**
      * Exception Transformer
      *
      * This transformer will be applied to all throw exceptions.
      */
-    'exceptionTransformer' => 'RestApi\Transformers\ArrayTransformer',
+    'exceptionTransformer' => 'RestfulApi\\Transformers\\ArrayTransformer',
 
     /**
      * Element Types
@@ -113,7 +113,7 @@ return [
 
         '*' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\ArrayTransformer',
+            'transformer' => 'RestfulApi\\Transformers\\ArrayTransformer',
             'validator'   => null,
             'permissions' => [
                 'public'        => ['GET'],
@@ -123,44 +123,44 @@ return [
 
         'Asset' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\AssetTransformer',
-            'validator'   => 'RestApi\Validators\AssetValidator',
+            'transformer' => 'RestfulApi\\Transformers\\AssetTransformer',
+            'validator'   => 'RestfulApi\\Validators\AssetValidator',
         ],
 
         'Category' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\CategoryTransformer',
-            'validator'   => 'RestApi\Validators\CategoryValidator',
+            'transformer' => 'RestfulApi\\Transformers\\CategoryTransformer',
+            'validator'   => 'RestfulApi\\Validators\\CategoryValidator',
         ],
 
         'Entry' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\EntryTransformer',
-            'validator'   => 'RestApi\Validators\EntryValidator',
+            'transformer' => 'RestfulApi\\Transformers\\EntryTransformer',
+            'validator'   => 'RestfulApi\\Validators\\EntryValidator',
         ],
 
         'GlobalSet' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\GlobalSetTransformer',
-            'validator'   => 'RestApi\Validators\GlobalSetValidator',
+            'transformer' => 'RestfulApi\\Transformers\\GlobalSetTransformer',
+            'validator'   => 'RestfulApi\\Validators\\GlobalSetValidator',
         ],
 
         'MatrixBlock' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\MatrixBlockTransformer',
-            'validator'   => 'RestApi\Validators\MatrixBlockValidator',
+            'transformer' => 'RestfulApi\\Transformers\\MatrixBlockTransformer',
+            'validator'   => 'RestfulApi\\Validators\\MatrixBlockValidator',
         ],
 
         'Tag' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\TagTransformer',
-            'validator'   => 'RestApi\Validators\TagValidator',
+            'transformer' => 'RestfulApi\\Transformers\\TagTransformer',
+            'validator'   => 'RestfulApi\\Validators\\TagValidator',
         ],
 
         'User' => [
             'enabled'     => true,
-            'transformer' => 'RestApi\Transformers\UserTransformer',
-            'validator'   => 'RestApi\Validators\UserValidator',
+            'transformer' => 'RestfulApi\\Transformers\\UserTransformer',
+            'validator'   => 'RestfulApi\\Validators\\UserValidator',
         ],
 
     ],

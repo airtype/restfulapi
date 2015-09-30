@@ -1,13 +1,13 @@
 <?php
 
-namespace RestApi\Transformers;
+namespace RestfulApi\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use Craft\BaseElementModel;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
 use League\Fractal\Resource\Collection;
-use RestApi\Transformers\ArrayTransformer;
+use RestfulApi\Transformers\ArrayTransformer;
 
 class BaseTransformer extends TransformerAbstract
 {
@@ -40,13 +40,13 @@ class BaseTransformer extends TransformerAbstract
 
             if (is_object($value) && get_class($value) === 'Craft\\ElementCriteriaModel') {
                 $class = get_class($value->getElementType());
-                $element_type = \Craft\craft()->restApi_helper->getElementTypeByClass($class);
+                $element_type = \Craft\craft()->restfulApi_helper->getElementTypeByClass($class);
 
                 $manager = new Manager();
                 $manager->parseIncludes('content');
                 $manager->setSerializer(new ArraySerializer);
 
-                $transformer = \Craft\craft()->restApi_config->getTransformer($element_type);
+                $transformer = \Craft\craft()->restfulApi_config->getTransformer($element_type);
 
                 $value = $value->find();
 

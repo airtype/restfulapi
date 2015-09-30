@@ -1,6 +1,6 @@
 <?php
 
-namespace RestApi\Validators;
+namespace RestfulApi\Validators;
 
 use Craft\BaseElementModel;
 
@@ -57,7 +57,7 @@ abstract class AbstractValidator
      */
     private function validateContentModel(BaseElementModel $element)
     {
-        $fields_key = \Craft\craft()->config->get('contentModelFieldsLocation', 'restApi');
+        $fields_key = \Craft\craft()->config->get('contentModelFieldsLocation', 'restfulApi');
 
         if (!\Craft\craft()->content->validateContent($element)) {
             $this->addErrors([$fields_key => $element->getContent()->getErrors()]);
