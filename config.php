@@ -42,7 +42,7 @@ return [
      * The authentication method that should be applied to all requests. `null` will disable
      * authentication altogether.
      */
-    'defaultAuth' => 'craft',
+    'defaultAuth' => null,
 
     /**
      * Auth
@@ -88,7 +88,7 @@ return [
     /**
      * Serializers
      *
-     * Available serializers that can be specified as default serializers.
+     * Available serializers that can be specified as default serializer.
      */
     'serializers' => [
         'ArraySerializer'     => 'League\\Fractal\\Serializer\\ArraySerializer',
