@@ -195,12 +195,20 @@ class Request extends ServerRequest
      */
     protected function setDefaultCriteria()
     {
-        $element_type = $this->getAttribute('elementType');
+        $element_type         = $this->getAttribute('elementType');
+        $pagination_parameter = \Craft\craft()->config->get('paginationParameter', 'restfulApi');
 
         if ($element_type) {
             $params = $this->getQueryParams();
 
-            $this->criteria = \Craft\craft()->elements->getCriteria($element_type, $params);
+            $criteria = \Craft\craft()->elements->getCriteria($element_type, $params);
+
+            if (isset($criteria->$pagination_parameter)) {
+                $criteria->offset = ($criteria->$pagination_parameter - 1) * $criteria->limit;
+                unset($criteria->$pagination_parameter);
+            }
+
+            $this->criteria = $criteria;
         }
     }
 

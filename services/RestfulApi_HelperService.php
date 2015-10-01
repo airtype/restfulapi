@@ -56,13 +56,6 @@ class RestfulApi_HelperService extends BaseApplicationComponent
      */
     public function getElements(ElementCriteriaModel $criteria)
     {
-        $pagination_parameter = craft()->config->get('paginationParameter', 'restfulApi');
-
-        if (isset($criteria->$pagination_parameter)) {
-            $criteria->offset = $criteria->$pagination_parameter;
-            unset($criteria->$pagination_parameter);
-        }
-
         return $criteria->find();
     }
 

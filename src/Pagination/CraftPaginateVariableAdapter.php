@@ -38,7 +38,7 @@ class CraftPaginateVariableAdapter implements PaginatorInterface
 
         $this->count = $criteria->count();
 
-        $this->total = ceil($criteria->total() / $this->limit);
+        $this->total = $criteria->total();
 
         $this->current_page = isset($criteria->page) ? (int) $criteria->page : 1;
 
@@ -46,7 +46,7 @@ class CraftPaginateVariableAdapter implements PaginatorInterface
             $this->current_page = $this->total;
         }
 
-        $this->last_page = ceil($this->total / $criteria->limit);
+        $this->last_page = ceil($criteria->total() / $this->limit);
     }
 
     /**
