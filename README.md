@@ -102,7 +102,7 @@ By default, Restful Api will import any classes found in any plugin's `transform
 
 ### defaultSerializer
 ```php
-
+'defaultSerializer' => 'ArraySerializer',
 ```
 A Serializer structures your transformed data in certain ways. For more info, see the Fractal documentation on [serializers] (http://fractal.thephpleague.com/serializers/).
 
@@ -116,7 +116,85 @@ A Serializer structures your transformed data in certain ways. For more info, se
 ```
 Available serializers that can be specified as default serializer.
 
-## Permissions
+### exceptionTransformer
+```php
+'exceptionTransformer' => 'RestfulApi\\Transformers\\ArrayTransformer',
+```
+This transformer will be applied to all caught exceptions that either are or extent `RestfulApi\Exceptions\RestfulApiException`.
+
+### elementTypes
+```php
+'elementTypes' => [
+
+    '*' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\ArrayTransformer',
+        'validator'   => null,
+        'permissions' => [
+            'public'        => ['GET'],
+            'authenticated' => ['POST', 'PUT', 'PATCH'],
+        ],
+    ],
+
+    'Asset' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\AssetTransformer',
+        'validator'   => 'RestfulApi\\Validators\AssetValidator',
+    ],
+
+    'Category' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\CategoryTransformer',
+        'validator'   => 'RestfulApi\\Validators\\CategoryValidator',
+    ],
+
+    'Entry' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\EntryTransformer',
+        'validator'   => 'RestfulApi\\Validators\\EntryValidator',
+    ],
+
+    'GlobalSet' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\GlobalSetTransformer',
+        'validator'   => 'RestfulApi\\Validators\\GlobalSetValidator',
+    ],
+
+    'MatrixBlock' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\MatrixBlockTransformer',
+        'validator'   => 'RestfulApi\\Validators\\MatrixBlockValidator',
+    ],
+
+    'Tag' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\TagTransformer',
+        'validator'   => 'RestfulApi\\Validators\\TagValidator',
+    ],
+
+    'User' => [
+        'enabled'     => true,
+        'transformer' => 'RestfulApi\\Transformers\\UserTransformer',
+        'validator'   => 'RestfulApi\\Validators\\UserValidator',
+    ],
+
+],
+```
+Above are configurations for each element type. If no setting is defined for an element type, the default settings defined in the `*` wildcard will be inherited.
+
+Permissions can be added to each element type individually. For example, if you only wanted authenticated requests to view users, your configuration would be something like this:
+
+```php
+'User' => [
+    'enabled'     => true,
+    'transformer' => 'RestfulApi\\Transformers\\UserTransformer',
+    'validator'   => 'RestfulApi\\Validators\\UserValidator',
+    'permissions' => [
+        'public'        => [],
+        'authenticated' => ['GET'],
+    ],
+],
+```
 
 ## Disclaimer
 This plugin is still considered to be in early development. Use with caution. If you see something wrong, please create an issue or feel free to fork and make a pull request.
