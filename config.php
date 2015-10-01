@@ -99,7 +99,7 @@ return [
     /**
      * Exception Transformer
      *
-     * This transformer will be applied to all throw exceptions.
+     * This transformer will be applied to all thrown exceptions.
      */
     'exceptionTransformer' => 'RestfulApi\\Transformers\\ArrayTransformer',
 
