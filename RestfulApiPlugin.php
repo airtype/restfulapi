@@ -90,15 +90,15 @@ class RestfulApiPlugin extends BasePlugin
         if ($autoload['transformers']) {
             Craft::import('plugins.*.transformers.*', true);
         } else {
-            Craft::import('plugins.RestfulApi.transformers.*', true);
+            Craft::import('plugins.restfulapi.transformers.*', true);
         }
 
         if ($autoload['validators']) {
             Craft::import('plugins.*.validators.*', true);
         } else {
-            Craft::import('plugins.RestfulApi.validators.*', true);
+            Craft::import('plugins.restfulapi.validators.*', true);
         }
 
-        Craft::import('plugins.RestfulApi.vendor.autoload', true);
+        Craft::import('plugins.restfulapi.vendor.autoload', true);
     }
 }
