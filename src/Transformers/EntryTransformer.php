@@ -7,9 +7,21 @@ use Craft\EntryModel;
 class EntryTransformer extends BaseTransformer
 {
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->availableIncludes = array_merge($this->availableIncludes, [
+            'author',
+            'section',
+            'type',
+        ]);
+    }
+
+    /**
      * Transform
      *
-     * @param BaseElementModel $element Entry
+     * @param EntryModel $element Entry
      *
      * @return array Entry
      */
@@ -37,5 +49,54 @@ class EntryTransformer extends BaseTransformer
             'parentId'      => (int) $element->parentId,
             'revisionNotes' => $element->revisionNotes,
         ];
+    }
+
+    /**
+     * Include Section
+     *
+     * @param EntryModel $element Entry
+     *
+     * @return League\Fractal\Resource\Item Section
+     */
+    public function includeSection(EntryModel $element)
+    {
+        $section = $element->getSection();
+
+        if ($section) {
+            return $this->item($section, new SectionTransformer);
+        }
+    }
+
+
+    /**
+     * Include Author
+     *
+     * @param EntryModel $element Entry
+     *
+     * @return League\Fractal\Resource\Item Author
+     */
+    public function includeAuthor(EntryModel $element)
+    {
+        $author = $element->getAuthor();
+
+        if ($author) {
+            return $this->item($author, new UserTransformer);
+        }
+    }
+
+    /**
+     * Include Type
+     *
+     * @param EntryModel $element Entry
+     *
+     * @return League\Fractal\Resource\Item Type
+     */
+    public function includeType(EntryModel $element)
+    {
+        $type = $element->getType();
+
+        if ($type) {
+            return $this->item($type, new EntryTypeTransformer);
+        }
     }
 }

@@ -6,6 +6,23 @@ use Craft\MatrixBlockModel;
 
 class MatrixBlockTransformer extends BaseTransformer
 {
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->availableIncludes = array_merge($this->availableIncludes, [
+            'type',
+        ]);
+    }
+
+    /**
+     * Transform
+     *
+     * @param MatrixBlockModel $element MatrixBlock
+     *
+     * @return array MatrixBlock
+     */
     public function transform(MatrixBlockModel $element)
     {
         return [
@@ -29,4 +46,21 @@ class MatrixBlockTransformer extends BaseTransformer
             'collapsed'   => (bool) $element->collapsed,
         ];
     }
+
+    /**
+     * Include Type
+     *
+     * @param MatrixBlockModel $element MatrixBlock
+     *
+     * @return League\Fractal\Resource\Item Type
+     */
+    public function includeType(MatrixBlockModel $element)
+    {
+        $type = $element->getType();
+
+        if ($type) {
+            return $this->item($type, new MatrixBlockTypeTransformer);
+        }
+    }
+
 }

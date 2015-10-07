@@ -43,7 +43,7 @@ class BaseTransformer extends TransformerAbstract
                 $element_type = \Craft\craft()->restfulApi_helper->getElementTypeByClass($class);
 
                 $manager = new Manager();
-                $manager->parseIncludes('content');
+                $manager->parseIncludes(array_merge(['content'], explode(',', \Craft\craft()->request->getParam('include'))));
                 $manager->setSerializer(new ArraySerializer);
 
                 $transformer = \Craft\craft()->restfulApi_config->getTransformer($element_type);
@@ -61,5 +61,10 @@ class BaseTransformer extends TransformerAbstract
         }
 
         return $this->item($content, new ContentTransformer);
+    }
+
+    public function __call($method, $args)
+    {
+        return;
     }
 }

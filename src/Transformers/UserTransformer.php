@@ -33,7 +33,7 @@ class UserTransformer extends BaseTransformer
             'firstName'                  => $element->firstName,
             'lastName'                   => $element->lastName,
             'email'                      => $element->email,
-            'password'                   => $element->password,
+            // 'password'                   => $element->password,
             'preferredLocale'            => $element->preferredLocale,
             'weekStartDay'               => $element->weekStartDay,
             'admin'                      => (int) $element->admin,
