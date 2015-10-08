@@ -2,18 +2,18 @@
 
 namespace RestfulApi\Transformers;
 
-use Craft\AssetModel;
+use Craft\AssetFileModel;
 
-class AssetTransformer extends BaseTransformer
+class AssetFileTransformer extends BaseTransformer
 {
     /**
      * Transform
      *
-     * @param AssetModel $element Asset
+     * @param AssetFileModel $element Asset
      *
      * @return array Asset
      */
-    public function transform(AssetModel $element)
+    public function transform(AssetFileModel $element)
     {
         return [
             'id'            => (int) $element->id,
@@ -29,13 +29,15 @@ class AssetTransformer extends BaseTransformer
             'lft'           => ($element->lft) ? (int) $element->lft : null,
             'rgt'           => ($element->rgt) ? (int) $element->rgt : null,
             'level'         => ($element->level) ? (int) $element->level : null,
-            'sectionId'     => (int) $element->sectionId,
-            'typeId'        => (int) $element->typeId,
-            'authorId'      => (int) $element->authorId,
-            'postDate'      => $element->postDate,
-            'expiryDate'    => $element->expiryDate,
-            'parentId'      => (int) $element->parentId,
-            'revisionNotes' => $element->revisionNotes,
+            'sourceId'      => (int) $element->folderId,
+            'folderId'      => (int) $element->filename,
+            'originalName'  => $element->originalName,
+            'kind'          => $element->kind,
+            'width'         => (int) $element->width,
+            'height'        => (int) $element->height,
+            'size'          => (int) $element->size,
+            'dateModified'  => $element->dateModified,
         ];
     }
+
 }
