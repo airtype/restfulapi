@@ -147,21 +147,7 @@ class Response extends \RestfulApi\Http\Psr7\Response
      */
     protected function setDefaultHeaders()
     {
-        $this->headers = [
-            'Pragma'        => [
-                'no-cache',
-            ],
-            'Cache-Control' => [
-                'no-store',
-                'no-cache',
-                'must-revalidate',
-                'post-check=0',
-                'pre-check=0',
-            ],
-            'Content-Type' => [
-                'application/json; charset=utf-8',
-            ],
-        ];
+        $this->headers = \Craft\craft()->config->get('defaultHeaders', 'restfulApi');
     }
 
     /**
