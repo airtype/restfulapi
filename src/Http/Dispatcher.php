@@ -129,9 +129,9 @@ class Dispatcher
     {
         $this->validateElementType($request->getAttribute('elementType'), array_keys($this->element_types));
 
-        if (!empty($request->getAttribute('elementId'))) {
-            $this->validateElement($request->getAttribute('elementId'), $request->getAttribute('elementType'));
-        }
+        // if (!empty($request->getAttribute('elementId'))) {
+        //     $this->validateElement($request->getAttribute('elementId'), $request->getAttribute('elementType'));
+        // }
 
         $this->validateElementPermission($request, $user, $is_authenticated);
     }

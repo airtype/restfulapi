@@ -71,11 +71,23 @@ class RestfulApi_HelperService extends BaseApplicationComponent
         $element_id = $request->getAttribute('elementId');
 
         if ($element_id) {
-            $element = craft()->elements->getElementById($element_id);
+            $criteria = $request->getCriteria();
+
+            $element = $criteria->first();
         } else {
             $element = sprintf('Craft\\%sModel', $request->getAttribute('elementType'));
 
             $element = new $element;
+        }
+
+        if (!$element) {
+            $exception = new RestfulApiException();
+
+            $exception
+                ->setStatus(404)
+                ->setMessage('Element not found.');
+
+            throw $exception;
         }
 
         return $element;

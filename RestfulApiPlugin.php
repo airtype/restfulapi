@@ -57,7 +57,7 @@ class RestfulApiPlugin extends BasePlugin
 
         return [
             $route_prefix => ['action' => 'restfulApi/resourceRouter'],
-            sprintf('%s/(?P<elementType>\w+)(/(?P<elementId>\d+)(/(?P<action>\w+))?)?', $route_prefix) => ['action' => 'restfulApi/resourceRouter'],
+            sprintf('%s/(?P<elementType>\w+)(/(?P<elementId>[\w\-\d]+)(/(?P<action>\w+))?)?', $route_prefix) => ['action' => 'restfulApi/resourceRouter'],
         ];
     }
 

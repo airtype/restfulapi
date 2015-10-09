@@ -196,6 +196,7 @@ class Request extends ServerRequest
     protected function setDefaultCriteria()
     {
         $element_type         = $this->getAttribute('elementType');
+        $element_id           = $this->getAttribute('elementId');
         $pagination_parameter = \Craft\craft()->config->get('paginationParameter', 'restfulApi');
 
         if ($element_type) {
@@ -206,6 +207,23 @@ class Request extends ServerRequest
             if (isset($criteria->$pagination_parameter)) {
                 $criteria->offset = ($criteria->$pagination_parameter - 1) * $criteria->limit;
                 unset($criteria->$pagination_parameter);
+            }
+
+            if ($element_id) {
+                $criteria->archived = null;
+                $criteria->fixedOrder = null;
+                $criteria->limit = 1;
+                $criteria->localeEnabled = false;
+                $criteria->offset = 0;
+                $criteria->order = null;
+                $criteria->status = null;
+                $criteria->editable = null;
+
+                if (is_numeric($element_id)) {
+                    $criteria->id = $element_id;
+                } else {
+                    $criteria->slug = $element_id;
+                }
             }
 
             $this->criteria = $criteria;
