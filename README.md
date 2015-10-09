@@ -50,6 +50,26 @@ If`devMode` is enabled, the stack trace for any exception that throws `RestfulAp
 ```
 The Api Route Prefix acts as a namespace and is prepended to all routes that the API plugin defines.
 
+### defaultHeaders
+```php
+'defaultHeaders' => [
+    'Pragma'        => [
+        'no-cache',
+    ],
+    'Cache-Control' => [
+        'no-store',
+        'no-cache',
+        'must-revalidate',
+        'post-check=0',
+        'pre-check=0',
+    ],
+    'Content-Type' => [
+        'application/json; charset=utf-8',
+    ],
+],
+```
+These headers will be sent with every Response.
+
 ### paginationParameter
 ```php
 'paginationParameter' => 'page',

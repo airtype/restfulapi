@@ -20,12 +20,40 @@ return [
     'apiRoutePrefix' => 'api',
 
     /**
+     * Default Headers
+     *
+     * These headers will be sent with every Response.
+     */
+    'defaultHeaders' => [
+        'Pragma'        => [
+            'no-cache',
+        ],
+        'Cache-Control' => [
+            'no-store',
+            'no-cache',
+            'must-revalidate',
+            'post-check=0',
+            'pre-check=0',
+        ],
+        'Content-Type' => [
+            'application/json; charset=utf-8',
+        ],
+    ],
+
+    /**
      * Page Trigger
      *
      * The query string parametere for pagination. If the value is the same as
      * Craft's `pageTrigger`, an exception will be thrown.
      */
     'paginationParameter' => 'page',
+
+    /**
+     * Pagination Base Url
+     *
+     * The url that is prepended to all pagination links.
+     */
+    'paginationBaseUrl' => \Craft\craft()->request->getPath(),
 
     /**
      * Content Model Fields Location
@@ -123,8 +151,8 @@ return [
 
         'Asset' => [
             'enabled'     => true,
-            'transformer' => 'RestfulApi\\Transformers\\AssetTransformer',
-            'validator'   => 'RestfulApi\\Validators\AssetValidator',
+            'transformer' => 'RestfulApi\\Transformers\\AssetFileTransformer',
+            'validator'   => 'RestfulApi\\Validators\AssetFileValidator',
         ],
 
         'Category' => [
