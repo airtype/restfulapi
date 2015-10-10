@@ -65,6 +65,15 @@ return [
     'contentModelFieldsLocation' => 'fields',
 
     /**
+     * Content Recursion Limit
+     *
+     * This is the number of times content fields can be populated recursively.
+     * With complex data models that have multiple relationships, populating content
+     * automatically can pull in a lot of extra data.
+     */
+    'contentRecursionLimit' => 2,
+
+    /**
      * Default Auth
      *
      * The authentication method that should be applied to all requests. `null` will disable

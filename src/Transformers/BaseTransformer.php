@@ -12,11 +12,23 @@ use RestfulApi\Transformers\ArrayTransformer;
 class BaseTransformer extends TransformerAbstract
 {
     /**
+     * Depth
+     *
+     * @var integer
+     */
+    protected $depth = 0;
+
+    /**
      * Available Includes
      *
      * @var array
      */
     protected $availableIncludes = ['content'];
+
+    public function __construct($depth = 0)
+    {
+        $this->depth = $depth;
+    }
 
     /**
      * Include Content
@@ -28,6 +40,10 @@ class BaseTransformer extends TransformerAbstract
     public function includeContent(BaseElementModel $element)
     {
         $content = [];
+
+        if ($this->depth > \Craft\craft()->config->get('contentRecursionLimit', 'restfulApi') - 1) {
+            return;
+        }
 
         foreach ($element->getFieldLayout()->getFields() as $fieldLayoutField) {
             $field = $fieldLayoutField->getField();
@@ -50,7 +66,7 @@ class BaseTransformer extends TransformerAbstract
 
                 $value = $value->find();
 
-                $body = new Collection($value, new $transformer);
+                $body = new Collection($value, new $transformer($this->depth + 1));
 
                 $value = $manager->createData($body)->toArray();
 
@@ -60,7 +76,9 @@ class BaseTransformer extends TransformerAbstract
             $content[$field->handle] = $value;
         }
 
-        return $this->item($content, new ContentTransformer);
+        if ($content) {
+            return $this->item($content, new ContentTransformer($this->depth), 'content');
+        }
     }
 
     public function __call($method, $args)
