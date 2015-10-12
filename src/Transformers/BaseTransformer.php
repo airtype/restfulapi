@@ -70,7 +70,7 @@ class BaseTransformer extends TransformerAbstract
 
                 $value = $manager->createData($body)->toArray();
 
-                $value = $value['data'];
+                $value = (!empty($value['data'])) ? $value['data'] : null;
             }
 
             $content[$field->handle] = $value;
