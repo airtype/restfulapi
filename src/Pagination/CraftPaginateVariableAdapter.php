@@ -112,7 +112,7 @@ class CraftPaginateVariableAdapter implements PaginatorInterface
         $pagination_base_url = \Craft\craft()->config->get('paginationBaseUrl', 'restfulApi');
         $page_trigger = \Craft\craft()->config->get('paginationParameter', 'restfulApi');
 
-        return \Craft\UrlHelper::getUrl($pagination_base_url, array_merge(\Craft\craft()->request->getQuery(), [
+        return $pagination_base_url . '?' . http_build_query(array_merge(\Craft\craft()->request->getQuery(), [
             $page_trigger => $page
         ]));
     }
