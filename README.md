@@ -5,7 +5,7 @@ Restful Api is a plugin for [Craft CMS](http://buildwithcraft.com) that exposes 
 Restful Api utilizes [Fractal] (http://fractal.thephpleague.com/) to transform and serialize responses. Restful Api is also [PSR-7] (http://www.php-fig.org/psr/psr-7/) complaint. Its request and response objects can even be utilized by third party plugins if desired, although this has not been extensively tested yet.
 
 ## Installation
-[Download] (https://github.com/airtype/RestfulApi/archive/master.zip) the latest version of the zip file. Place the `RestfulApi` directory within the `plugins` directory. In the Craft control panel, install the plugin.
+[Download] (https://github.com/airtype/RestfulApi/archive/master.zip) the latest version of the zip file. Place the `restfulapi` directory within the `plugins` directory. In the Craft control panel, install the plugin.
 
 ## Usage
 The url structure for the api endpoints are as follows (with the `?` denoting optional uri components):
