@@ -220,4 +220,5 @@ Permissions can be added to each element type individually. For example, if you 
 This plugin is still considered to be in early development. Use with caution. If you see something wrong, please create an issue or feel free to fork and make a pull request.
 
 ## Known Issues
-The only validator to actually exist at this time is the `EntryValidator`. The rest will be available soon.
+* The only validator to actually exist at this time is the `EntryValidator`. The rest will be available soon.
+* The `action` url parameter is not fully mature and will probably be refactored in the future.
