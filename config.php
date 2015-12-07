@@ -20,6 +20,20 @@ return [
     'apiRoutePrefix' => 'api',
 
     /**
+     * Wrappers
+     */
+
+    'wrappers' => [],
+
+    /**
+     * Middleware
+     */
+    'middleware' => [
+        'auth' => 'RestfulApi\\Middleware\\AuthMiddleware',
+        'rest' => 'RestfulApi\\Middleware\\RestMiddleware',
+    ],
+
+    /**
      * Default Headers
      *
      * These headers will be sent with every Response.
@@ -152,6 +166,7 @@ return [
             'enabled'     => true,
             'transformer' => 'RestfulApi\\Transformers\\ArrayTransformer',
             'validator'   => null,
+            'middleware'  => ['auth'],
             'permissions' => [
                 'public'        => ['GET'],
                 'authenticated' => ['POST', 'PUT', 'PATCH'],

@@ -55,8 +55,8 @@ class RestfulApi_HelperController extends BaseController
     {
         try {
             $this->router     = \Craft\craft()->urlManager;
-            $this->dispatcher = new Dispatcher($this->router);
             $this->request    = new Request();
+            $this->dispatcher = new Dispatcher($this->request);
             $this->response   = new Response($this->request);
         } catch (RestfulApiException $exception) {
             $response = new Response();
@@ -94,7 +94,7 @@ class RestfulApi_HelperController extends BaseController
      *
      * @return void
      */
-    public function actionResourceRouter(array $variables = [])
+    public function actionDispatch(array $variables = [])
     {
         try {
             $this->dispatcher->handle($this, $variables);
