@@ -4,6 +4,7 @@ namespace RestfulApi\Middleware;
 
 use RestfulApi\Http\Request;
 use RestfulApi\Exceptions\RestfulApiException;
+use Craft\UserModel;
 
 class AuthMiddleware extends MiddlewareAbstract
 {
