@@ -3,22 +3,20 @@
 namespace RestfulApi\Middleware;
 
 use RestfulApi\Http\Request;
+use RestfulApi\Http\Response;
 use RestfulApi\Exceptions\RestfulApiException;
 use Craft\UserModel;
 
-class AuthMiddleware extends MiddlewareAbstract
+class AuthMiddleware
 {
-    /**
-     * Handle
-     *
-     * @return void
-     */
-    public function handle()
+    public function __invoke(Request $request, Response $response, callable $next)
     {
         $user             = \Craft\craft()->userSession->getUser();
-        $is_authenticated = $this->isAuthenticated($this->request, $user);
+        $is_authenticated = $this->isAuthenticated($request, $user);
 
-        $this->validateRoute($this->request, $user, $is_authenticated);
+        $this->validateRoute($request, $user, $is_authenticated);
+
+        return $next($request, $response);;
     }
 
     /**

@@ -11,6 +11,8 @@ use CDbException;
 use League\Fractal\Serializer\ArraySerializer;
 use RestfulApi\Transformers\ArrayTransformer;
 
+use Relay\Runner;
+
 class RestfulApi_HelperController extends BaseController
 {
     /**
@@ -57,7 +59,17 @@ class RestfulApi_HelperController extends BaseController
             $this->router     = \Craft\craft()->urlManager;
             $this->request    = new Request();
             $this->dispatcher = new Dispatcher($this->request);
-            $this->response   = new Response($this->request);
+
+            $queue = array();
+            $queue[] = '\\RestfulApi\\Middleware\\AuthMiddleware';
+            $queue[] = '\\RestfulApi\\Middleware\\RestMiddleware';
+
+            $runner = new Runner($queue, function ($class) {
+                return new $class();
+            });
+
+            $this->response = $runner(new Request(), new Response($this->request));
+
         } catch (RestfulApiException $exception) {
             $response = new Response();
 
@@ -97,7 +109,7 @@ class RestfulApi_HelperController extends BaseController
     public function actionDispatch(array $variables = [])
     {
         try {
-            $this->dispatcher->handle($this, $variables);
+            // $this->dispatcher->handle($this, $variables);
 
             return $this->response->send();
         } catch (RestfulApiException $exception) {
