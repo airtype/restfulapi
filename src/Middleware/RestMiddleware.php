@@ -48,7 +48,7 @@ class RestMiddleware
      * @param string  $element_type Element Type
      * @param boolean $element_id   Element Id
      *
-     * @return [type]  [description]
+     * @return string Action
      */
     private function getAction($method, $element_type, $element_id = null)
     {
@@ -105,8 +105,7 @@ class RestMiddleware
     {
         $element = \Craft\craft()->restfulApi->getElement($request);
 
-        return $response
-            ->setItem($element);
+        return $response->setItem($element);
     }
 
     /**
