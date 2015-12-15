@@ -29,8 +29,8 @@ return [
      * Middleware
      */
     'middleware' => [
-        'auth' => 'RestfulApi\\Middleware\\AuthMiddleware',
-        'rest' => 'RestfulApi\\Middleware\\RestMiddleware',
+        'RestfulApi\\Middleware\\AuthMiddleware',
+        'RestfulApi\\Middleware\\RestMiddleware',
     ],
 
     /**

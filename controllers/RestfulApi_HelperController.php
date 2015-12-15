@@ -60,11 +60,7 @@ class RestfulApi_HelperController extends BaseController
             $this->request    = new Request();
             $this->dispatcher = new Dispatcher($this->request);
 
-            $queue = array();
-            $queue[] = '\\RestfulApi\\Middleware\\AuthMiddleware';
-            $queue[] = '\\RestfulApi\\Middleware\\RestMiddleware';
-
-            $runner = new Runner($queue, function ($class) {
+            $runner = new Runner(\Craft\craft()->config->get('middleware', 'restfulApi'), function ($class) {
                 return new $class();
             });
 
