@@ -28,6 +28,7 @@ Currently, Rest Api supports the following HTTP verbs:
 
 Example endpoints include:
 
+* `GET  http://example.com/api/Entry/2?include=content` returns the content of the entry with the element id of 2
 * `GET  http://example.com/api/Entry?page=2&limit=10&order=postDate asc`__ returns the second page of a paginated listing of 10 Entry elements, ordered by the `postDate` attribute in ascending order
 * `GET http://example.com/api/Entry/2` returns the entry with the element id of 2
 * `POST http://example.com/api/Entry` creates a new Entry element
