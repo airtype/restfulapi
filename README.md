@@ -1,3 +1,6 @@
+This plugin is depreciated in favor of [Http Messages] (https://github.com/airtype/httpmessages). No further commits will be made. If you have questions, feel free to contact @wesrice in the Craft Slack.
+===
+
 # Restful Api
 
 Restful Api is a plugin for [Craft CMS](http://buildwithcraft.com) that exposes elements as resources via a restful api. While similar to Craft's own [Element Api](https://github.com/pixelandtonic/ElementAPI) plugin, Restful Api offers a few more features such as support for more HTTP verbs, authentication and element type based permissions.
