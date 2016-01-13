@@ -1,5 +1,4 @@
-This plugin is depreciated in favor of [Http Messages] (https://github.com/airtype/httpmessages). No further commits will be made. If you have questions, feel free to contact @wesrice in the Craft Slack.
-===
+*__This plugin is depreciated in favor of [Http Messages] (https://github.com/airtype/httpmessages). No further commits will be made. If you have questions, feel free to contact @wesrice in the Craft Slack.__*
 
 # Restful Api
 
