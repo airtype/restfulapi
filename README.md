@@ -30,6 +30,7 @@ Currently, Rest Api supports the following HTTP verbs:
 
 Example endpoints include:
 
+* `GET  http://example.com/api/Asset?id=44&include=transforms` returns an image asset with the id of 44 with all available image transformation urls and sizes
 * `GET  http://example.com/api/Entry?page=2&limit=10&order=postDate asc`__ returns the second page of a paginated listing of 10 Entry elements, ordered by the `postDate` attribute in ascending order
 * `GET http://example.com/api/Entry/2` returns the entry with the element id of 2
 * `POST http://example.com/api/Entry` creates a new Entry element
